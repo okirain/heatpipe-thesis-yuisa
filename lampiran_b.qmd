@@ -1,0 +1,44 @@
+# LAMPIRAN B: TABEL PROPERTI TERMOFISIK DAN DATA TEKNIS REAKTOR ISR {.unnumbered}
+
+## B.1. Tabel Properti Termofisika Sodium Jenuh (800 K – 1250 K)
+Tabel B.1 menyajikan data sifat termofisika sodium cair dan uap yang digunakan dalam algoritma komputasi simulator numerik ROM.
+
+Table: Tabel B.1. Properti termofisika sodium pada rentang temperatur operasional reaktor antariksa [9]. {#tbl-na-props}
+
+| Suhu $T$ (K) | Tekanan $P_{\text{sat}}$ (Pa) | Panas Laten $h_{fg}$ ($\text{kJ/kg}$) | Densitas Cairan $\rho_l$ ($\text{kg/m}^3$) | Densitas Uap $\rho_v$ ($\text{kg/m}^3$) | Viskositas Cairan $\mu_l$ ($\text{mPa}\cdot\text{s}$) | Viskositas Uap $\mu_v$ ($\mu\text{Pa}\cdot\text{s}$) | Tegangan Permukaan $\sigma$ ($\text{mN/m}$) |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **800** | 1.842 | 4.215 | 823,4 | 0,0063 | 0,235 | 2,83 | 171,2 |
+| **850** | 4.120 | 4.148 | 811,9 | 0,0134 | 0,214 | 2,92 | 164,8 |
+| **900** | 6.545 | 4.081 | 800,2 | 0,0201 | 0,196 | 3,00 | 158,5 |
+| **950** | 13.360 | 4.013 | 788,4 | 0,0389 | 0,181 | 3,08 | 152,2 |
+| **1000** | 25.361 | 3.943 | 776,3 | 0,0701 | 0,168 | 3,16 | 145,9 |
+| **1050** | 45.242 | 3.872 | 764,1 | 0,1191 | 0,157 | 3,24 | 139,6 |
+| **1100** | 76.493 | 3.799 | 751,7 | 0,1923 | 0,147 | 3,32 | 133,3 |
+| **1150** | 123.510| 3.725 | 739,0 | 0,2969 | 0,138 | 3,39 | 127,1 |
+| **1200** | 191.264| 3.648 | 726,2 | 0,4407 | 0,130 | 3,46 | 120,8 |
+| **1250** | 285.420| 3.570 | 713,0 | 0,6318 | 0,123 | 3,54 | 114,6 |
+
+## B.2. Spesifikasi Desain Konseptual Indonesian Space Reactor (ISR)
+Data geometri dan neutronik reaktor ISR yang diadopsi dari studi Khandaq dkk. (2020) [6] disajikan pada Tabel B.2.
+
+Table: Tabel B.2. Ringkasan spesifikasi desain neutronik dan geometri teras Indonesian Space Reactor [6]. {#tbl-isr-specs}
+
+| Parameter Desain | Nilai Spesifikasi | Keterangan / Sumber |
+| :--- | :--- | :--- |
+| **Daya Termal Teras ($P_{\text{th}}$)** | 500 $\text{kW}_{\text{th}}$ (baseline 10 tahun) | Khandaq dkk. (2020) |
+| **Bahan Bakar Nuklir** | Uranium Nitrida ($\text{UN}$), pengayaan 55% $^{235}\text{U}$ | Densitas teoritis: 14,264 $\text{g/cm}^3$ |
+| **Total Massa Bahan Bakar $\text{UN}$** | 155,65 kg | 61 pin heksagonal silinder anular |
+| **Tinggi Bahan Bakar Aktif** | 25,0 cm ($L_{\text{fuel}} = 0,25\ \text{m}$) | Diapit reflektor aksial BeO |
+| **Panjang Total Pin Bahan Bakar** | 43,2 cm | Reflektor bawah 7 cm, atas 6 cm, gas 5 cm |
+| **Diameter Lubang Kelongsong** | 3,265 cm (32,65 mm) | Ruang untuk fuel UN dan pendingin |
+| **Bahan Kelongsong dan Blok Teras** | Paduan Mo-30Re | Titik lebur: 2790 °C |
+| **Reflektor Radial** | Berilium Oksida ($\text{BeO}$) | Tebal silinder terbagi 6 segmen |
+| **Drum Kendali Reaktivitas** | 6 unit drum berputar silinder $\text{BeO}$ | Lapisan penyerap $\text{B}_4\text{C}$ tebal 1,5 cm ($80\%\ ^{10}\text{B}$) |
+| **Harga Reaktivitas Drum Kendali** | -8520 pcm (-1420 pcm per drum) | KENO-VI / SCALE 6.1 |
+| **Reaktivitas Lebih Awal (*Excess*)** | $4023 \pm 9\ \text{pcm}$ (kondisi dingin bersih) | Aman dari batas proliferasi NPT |
+| **Margin Pemadaman (*Shutdown Margin*)**| $4852 \pm 9\ \text{pcm}$ (kondisi dingin bersih) | Memenuhi standar keselamatan antariksa |
+| **Kondisi Tenggelam Air Laut** | $-\rho = 2905 \pm 10\ \text{pcm}$ (subkritis) | Terlindungi oleh peredam spektrum SSA Re |
+| **Koefisien Suhu Bahan Bakar** | -0,7872 pcm/K | Inherent safe (umpan balik negatif) |
+| **Koefisien Fraksi Void Pendingin** | -0,0392 pcm/%void | Inherent safe (umpan balik negatif) |
+| **Massa Total Reaktor Awal** | 447,12 kg | Termasuk drum, perisai, dan penguat MA-956 |
+| **Massa Reaktor Baru (Pipa Kalor)** | **410,32 kg** | **Reduksi bersih 36,80 kg (8,23%)** |

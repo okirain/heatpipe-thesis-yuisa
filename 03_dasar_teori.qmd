@@ -1,0 +1,121 @@
+# BAB III DASAR TEORI
+
+## III.1. Termofisika Sodium Cair dan Uap
+Sodium ($\text{Na}$) adalah logam alkali yang memiliki titik lebur 370,87 K (97,72 °C) dan titik didih atmosferik 1156,2 K (883,05 °C) pada tekanan standar 101,325 kPa [9]. Pada rentang suhu kerja reaktor antariksa (800 K – 1250 K), sodium berada pada fase cair jenuh dengan tekanan uap moderat dan konduktivitas termal yang sangat tinggi.
+
+Sifat termofisika sodium cair dan uap dievaluasi menggunakan formulasi analitik standar *Argonne National Laboratory* ANL-RE-95-2 oleh Fink dan Leibowitz [9] serta korelasi Faghri [7]:
+
+### 1. Tekanan Uap Jenuh ($P_{\text{sat}}$)
+Tekanan uap jenuh sodium sebagai fungsi temperatur mutlak $T$ (K) dinyatakan oleh Persamaan (3.1):
+$$\ln(P_{\text{sat}} [\text{MPa}]) = 11,9463 - \frac{12633,73}{T} - 0,5 \ln(T)$$ {#eq-psat}
+sehingga dalam satuan Pascal ($\text{Pa}$):
+$$P_{\text{sat}}(T) = 10^6 \times \exp\left(11,9463 - \frac{12633,73}{T} - 0,5 \ln(T)\right)$$ {#eq-psat-pa}
+
+### 2. Panas Laten Penguapan ($h_{fg}$)
+Panas laten penguapan sodium dinyatakan sebagai fungsi dari temperatur kritis $T_c = 2503,7\ \text{K}$ melalui Persamaan (3.2):
+$$h_{fg}(T) = 4,76 \times 10^6 \left(1 - \frac{T}{T_c}\right)^{0,38} \quad [\text{J/kg}]$$ {#eq-hfg}
+
+### 3. Densitas Massa Cairan dan Uap ($\rho_l, \rho_v$)
+Densitas cairan sodium $\rho_l$ dihitung berdasarkan ekspansi termal ANL-RE-95-2 [9]:
+$$\rho_l(T) = 1011,8 - 0,22054 T - 1,9226 \times 10^{-5} T^2 + 5,637 \times 10^{-9} T^3 \quad [\text{kg/m}^3]$$ {#eq-rhol}
+Sedangkan densitas uap sodium $\rho_v$ mengikuti hukum gas ideal terdisosiasi dengan berat molekul $M_{\text{Na}} = 22,98977\ \text{g/mol}$:
+$$\rho_v(T, P) = \frac{P}{R_g T} \quad [\text{kg/m}^3]$$ {#eq-rhov}
+dengan konstanta gas spesifik sodium $R_g = R_u / M_{\text{Na}} = 361,66\ \text{J/(kg}\cdot\text{K)}$.
+
+### 4. Viskositas Dinamik Cairan dan Uap ($\mu_l, \mu_v$)
+Viskositas cairan sodium dinyatakan oleh:
+$$\ln(\mu_l [\text{Pa}\cdot\text{s}]) = -6,4406 - 0,3958 \ln(T) + \frac{556,835}{T}$$ {#eq-mul}
+dan viskositas dinamik uap sodium adalah:
+$$\mu_v(T) = 1,0 \times 10^{-7} \sqrt{T} \quad [\text{Pa}\cdot\text{s}]$$ {#eq-muv}
+
+### 5. Tegangan Permukaan ($\sigma$)
+Tegangan permukaan cairan sodium terhadap uap jenuhnya didekati dengan Persamaan (3.6):
+$$\sigma(T) = 0,2405 \left(1 - \frac{T}{T_c}\right)^{1,126} \quad [\text{N/m}]$$ {#eq-sigma}
+
+## III.2. Dinamika Aliran Uap Kompresibel dan Gesekan 1D
+Pada pipa kalor berdaya tinggi, uap sodium mengalir aksial sepanjang saluran inti uap berdiameter $D_v = 2 r_v$. Laju alir massa uap aksial $\dot{m}_v(z)$ pada koordinat aksial $z \in [0, L]$ dikendalikan oleh fluks penguapan dan pengembunan:
+$$\dot{m}_v(z) = \begin{cases}
+\dot{m}_{\max} \frac{z}{L_e}, & 0 \le z \le L_e \quad \text{(Evaporator)} \\
+\dot{m}_{\max}, & L_e < z \le L_e + L_a \quad \text{(Adiabatik)} \\
+\dot{m}_{\max} \left(1 - \frac{z - L_e - L_a}{L_c}\right), & L_e + L_a < z \le L \quad \text{(Kondensor)}
+\end{cases}$$ {#eq-mdot}
+dengan $\dot{m}_{\max} = \frac{Q}{h_{fg}}$.
+
+Gradien tekanan uap aksial diturunkan dari persamaan momentum fluida satu dimensi Navier-Stokes dengan efek gesekan dinding dan percepatan/perlambatan inersia fluida [7, 11]:
+$$\frac{dP_v}{dz} = -\frac{f_v \rho_v u_v^2}{2 D_v} - \beta \frac{d(\rho_v u_v^2)}{dz}$$ {#eq-dpv}
+di mana $u_v(z) = \frac{\dot{m}_v(z)}{\rho_v A_v}$ adalah kecepatan rata-rata uap.
+
+Faktor gesekan Darcy $f_v$ ditentukan berdasarkan bilangan Reynolds uap $Re_v = \frac{\rho_v u_v D_v}{\mu_v}$:
+$$f_v = \begin{cases}
+\frac{64}{Re_v}, & Re_v < 2300 \quad \text{(Laminer)} \\
+0,3164 Re_v^{-0,25}, & Re_v \ge 2300 \quad \text{(Turbulen)}
+\end{cases}$$ {#eq-fv}
+
+Koefisien inersia $\beta$ merepresentasikan interaksi momentum radial:
+- Pada zona evaporator ($\beta = 1,0$): injeksi massa uap radial mempercepat aliran aksial sehingga menimbulkan rugi tekanan inersial tambahan.
+- Pada zona kondensasi ($\beta \approx 0,65$): penarikan uap menuju dinding menyebabkan perlambatan aliran aksial, menghasilkan fenomena pemulihan tekanan sebagian (*pressure recovery*) [7].
+
+Kecepatan suara dalam uap sodium monatomik ($\gamma = 1,67$) dan bilangan Mach lokal dihitung melalui:
+$$c_s = \sqrt{\gamma R_g T_v}, \quad Ma(z) = \frac{u_v(z)}{c_s}$$ {#eq-mach}
+
+## III.3. Hidrodinamika Aliran Cairan dalam Struktur Sumbu Berpori
+Cairan sodium yang terkondensasi pada kondensor dialirkan kembali menuju evaporator melalui ruang berpori sumbu kapiler akibat aksi kapilaritas [7, 8]. Pada struktur pori jenuh cairan, aliran fluida memenuhi persamaan filtrasi empirik Hukum Darcy:
+$$\frac{dP_l}{dz} = \frac{\mu_l \dot{m}_l(z)}{\rho_l A_w K} + \rho_l g \sin\theta$$ {#eq-dpl}
+di mana:
+- $K$ adalah permeabilitas intrinsik struktur sumbu ($\text{m}^2$),
+- $A_w = \pi (r_i^2 - r_v^2)$ adalah luas penampang basah sumbu,
+- $\dot{m}_l(z) = -\dot{m}_v(z)$ memenuhi hukum kekekalan massa tertutup,
+- $\rho_l g \sin\theta$ adalah kontribusi head hidrostatik gravitasi, di mana $\theta$ adalah sudut inklinasi pipa terhadap bidang horisontal.
+
+Pada antarmuka meniskus cairan-uap di dalam pori, beda tekanan kapiler dibangkitkan oleh kelengkungan permukaan menurut persamaan Young-Laplace [8]:
+$$\Delta P_c(z) = P_v(z) - P_l(z) \le \Delta P_{c,\max} = \frac{2 \sigma \cos\theta_c}{r_{\text{eff}}}$$ {#eq-young-laplace}
+di mana $r_{\text{eff}}$ adalah jari-jari pori kapiler efektif dan $\theta_c$ adalah sudut kontak pembasahan padatan-cairan ($\theta_c \approx 0$ untuk sodium cair yang membasahi sempurna logam refractory seperti Mo, Re, atau paduan Haynes) [7].
+
+## III.4. Batas-Batas Operasional Perpindahan Kalor (*Operational Limits*)
+Kapasitas perpindahan kalor maksimum pipa kalor sodium dibatasi oleh lima batas fisik utama yang membentuk amplop operasional (*operating envelope*) [7, 8]:
+
+### 1. Batas Kapiler (*Capillary Limit*, $Q_{\text{cap}}$)
+Batas kapiler tercapai apabila kebutuhan total penurunan tekanan sirkulasi siklus melebihi tekanan kapiler pemompaan maksimum:
+$$\Delta P_{c,\max} \ge \Delta P_v + \Delta P_l + \Delta P_g$$ {#eq-cap-balance}
+Dengan mengintegrasikan Persamaan (3.8) dan (3.11) sepanjang panjang efektif perpindahan kalor $L_{\text{eff}} = 0,5 L_e + L_a + 0,5 L_c$, diperoleh formulasi batas kapiler:
+$$Q_{\text{cap}} = \frac{\Delta P_{c,\max} - \Delta P_g}{(F_l + F_v) L_{\text{eff}}}$$ {#eq-qcap}
+dengan koefisien tahanan fasa cair $F_l = \frac{\mu_l}{\rho_l A_w K h_{fg}}$ dan koefisien tahanan uap $F_v = \frac{8 \mu_v}{\pi \rho_v r_v^4 h_{fg}}$.
+
+### 2. Batas Sonik (*Sonic Limit*, $Q_{\text{sonic}}$)
+Pada saat densitas uap rendah (misalnya pada awal penyalaan reaktor atau temperatur teras rendah), laju alir uap yang tinggi dapat menyebabkan kecepatan uap di ujung hilir evaporator mencapai kecepatan suara ($Ma = 1$). Kondisi aliran tercekik (*choked flow*) membatasi kapasitas kalor pada batas sonik menurut korelasi Levy dan Busse [11]:
+$$Q_{\text{sonic}} = A_v \rho_{v,0} h_{fg} \sqrt{\frac{\gamma R_g T_{v,0}}{2(\gamma + 1)}}$$ {#eq-qsonic}
+
+### 3. Batas Entrainment (*Entrainment Limit*, $Q_{\text{ent}}$)
+Batas entrainment terjadi ketika tegangan geser antarmuka uap berkecepatan tinggi merobek tetesan cairan dari meniskus sumbu berpori dan membawanya terbang bersama uap sebelum mencapai kondensor. Fenomena ini diprediksi melalui kriteria bilangan Weber $We = \frac{\rho_v u_v^2 (2 r_{\text{hs}})}{\sigma} \ge 1$ menurut korelasi Cotter [18]:
+$$Q_{\text{ent}} = A_v h_{fg} \sqrt{\frac{\sigma \rho_v}{2 r_{\text{hs}}}}$$ {#eq-qent}
+di mana $r_{\text{hs}}$ adalah jari-jari hidrolik permukaan kawat anyaman sumbu ($r_{\text{hs}} \approx 0,5 r_{\text{eff}}$).
+
+### 4. Batas Viskos (*Viscous Limit*, $Q_{\text{visc}}$)
+Pada suhu awal penyalaan yang sangat rendah ($T < 700\ \text{K}$), tekanan uap sodium sangat kecil sehingga gaya gesekan viskos mendominasi dan mencekik gradien tekanan uap sebelum aliran sonik terbentuk. Batas viskos Busse dinyatakan oleh [11]:
+$$Q_{\text{visc}} = \frac{r_v^2 h_{fg} \rho_v P_{\text{sat}} A_v}{16 \mu_v L_{\text{eff}}}$$ {#eq-qvisc}
+
+### 5. Batas Pendidihan (*Boiling Limit*, $Q_{\text{boil}}$)
+Jika fluks kalor radial pada evaporator terlampau tinggi, suhu dinding sumbu bagian dalam dapat melampaui batas superheat kritis sehingga terjadi nukleasi gelembung uap di dalam pori. Gelembung uap yang terperangkap mengisolasi dinding dari suplai cairan (terjadinya *vapor blanket*), memicu kenaikan suhu dinding secara tajam (*burnout*). Batas pendidihan dirumuskan oleh [7]:
+$$Q_{\text{boil}} = \frac{2 \pi L_e k_{\text{eff}} \Delta T_{\text{crit}}}{\ln(r_i / r_v)}$$ {#eq-qboil}
+dengan superheat kritis $\Delta T_{\text{crit}} = \frac{2 \sigma T_{\text{sat}}}{\rho_v h_{fg} r_n}$, di mana $r_n \approx 2,5\ \mu\text{m}$ adalah jari-jari rongga nukleasi tipikal.
+
+Amplop daya maksimum yang dapat ditranspor adalah nilai minimum dari kelima batas tersebut:
+$$Q_{\text{envelope}}(T) = \min\left(Q_{\text{cap}}, Q_{\text{sonic}}, Q_{\text{ent}}, Q_{\text{visc}}, Q_{\text{boil}}\right)$$ {#eq-qenv}
+
+## III.5. Efek Gravitasi dan Rezim Mikrogravitasi Ruang Angkasa ($g = 0$)
+Salah satu perbedaan paling mendasar antara operasi pengujian pipa kalor di laboratorium permukaan bumi dan operasi riil pada wahana antariksa adalah komponen percepatan gravitasi:
+$$\Delta P_g = \rho_l g L_{\text{total}} \sin\theta$$ {#eq-dpg}
+
+1. **Pengujian Terestrial di Bumi ($g = 9,81\ \text{m/s}^2$)**:
+   - Jika pipa diletakkan miring dengan kondensor di atas evaporator ($\theta > 0$), gaya berat membantu pengembalian cairan ($\Delta P_g < 0$), sehingga kapasitas kapiler semu tampak lebih besar dari sebenarnya.
+   - Jika pipa diletakkan melawan gravitasi ($\theta < 0$), gaya berat menghambat pengembalian cairan, mengurangi margin kapiler secara drastis.
+2. **Rezim Antariksa Mikrogravitasi ($g = 0\ \text{m/s}^2$)**:
+   - Komponen head hidrostatik gravitasi bernilai nol ($\Delta P_g = 0$).
+   - Pengembalian cairan murni didorong oleh gaya tegangan permukaan kapiler ($\Delta P_{c,\max}$).
+   - Pipa kalor beroperasi secara omnidireksional tanpa memandang orientasi sudut putar wahana antariksa di orbit atau lintasan antariksa dalam.
+
+## III.6. Hipotesis Penelitian
+Berdasarkan tinjauan teoretis dan karakteristik fisik fluida sodium, hipotesis yang diajukan dalam penelitian ini adalah:
+1. Model orde-tereduksi (ROM) satu dimensi yang mengintegrasikan formulasi uap kompresibel Busse-Faghri dan aliran filtrasi sumbu Darcy mampu memprediksi profil suhu dan tekanan aksial pipa kalor sodium dengan tingkat akurasi tinggi (kesalahan relatif MAPE $< 2,0\%$ dan $R^2 > 0,95$) terhadap data uji lapangan NASA KRUSTY.
+2. Penggunaan pipa kalor sodium berstruktur sumbu komposit permeabilitas tinggi ($K \ge 2,5 \times 10^{-9}\ \text{m}^2$) dengan diameter luar 18 mm pada suhu kerja teras 1050 K mampu mengevakuasi daya termal pin puncak ISR sebesar 11,31 $\text{kW}_{\text{th}}$ dengan faktor keselamatan termohidrolika $> 1,10\times$ dalam kondisi mikrogravitasi ($g = 0$).
+3. Penggantian sistem sirkulasi pompa aktif $\text{Na-78K}$ dengan sistem pipa kalor pasif pada teras ISR 500 $\text{kW}_{\text{th}}$ mampu mereduksi massa total reaktor lebih dari 7,5% sekaligus mengeliminasi sepenuhnya komponen getaran mekanik dan risiko kegagalan sirkulasi aktif.

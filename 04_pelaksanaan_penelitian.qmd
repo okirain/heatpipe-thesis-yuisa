@@ -1,0 +1,131 @@
+# BAB IV PELAKSANAAN PENELITIAN
+
+## IV.1. Alat dan Bahan Penelitian
+Penelitian ini merupakan penelitian komputasi numerik dan pemodelan rekayasa termohidrolika reaktor nuklir. Alat dan bahan yang digunakan dijabarkan sebagai berikut:
+
+### 1. Spesifikasi Perangkat Keras (*Hardware*)
+Simulasi numerik dijalankan pada unit stasiun kerja komputasi dengan spesifikasi:
+- Prosesor: Intel® Core™ i7-12700H / AMD Ryzen™ 7 (16 threads, clock up to 4,7 GHz)
+- Memori RAM: 16 GB DDR4/DDR5
+- Media Penyimpanan: NVMe Solid State Drive 512 GB
+- Sistem Operasi: Linux Ubuntu 22.04 LTS / Windows 11 64-bit
+
+### 2. Spesifikasi Perangkat Lunak (*Software*)
+- Bahasa Pemrograman: Python versi 3.10+ (modul standar `math`, `json`, `sys`, `os`, `csv`)
+- Lingkungan Pengembangan: Visual Studio Code, GNU Compiler Collection, Quarto Publishing System versi 1.4+
+- Piranti Referensi Desain Neutronik: Kode Monte Carlo SCALE 6.1 (KENO-VI dan TRITON) dari studi Khandaq dkk. (2020) [6]
+
+### 3. Bahan dan Data Parameter Bahan
+Data termofisika bahan yang digunakan dalam pemodelan termohidrolika dirangkum pada Tabel 4.1.
+
+Table: Tabel 4.1. Properti termofisika dan mekanik bahan reaktor pada suhu kamar dan suhu operasi [6, 9]. {#tbl-material-props}
+
+| Komponen Reaktor | Bahan | Densitas ($\text{g/cm}^3$) | Konduktivitas Termal ($\text{W/(m}\cdot\text{K)}$) | Titik Lebur (°C) |
+| :--- | :--- | :--- | :--- | :--- |
+| **Bahan Bakar Teras** | $\text{UN}$ (55% $^{235}\text{U}$) | 14,264 | 22,5 | 2800 |
+| **Kelongsong / Wadah Teras** | Paduan Mo-30Re | 11,963 | 65,0 | 2790 |
+| **Pipa Pendingin Refractory** | Rhenium Murni ($\text{Re}$) | 21,020 | 48,0 | 3180 |
+| **Reflektor Aksial / Radial**| Berilium Oksida ($\text{BeO}$) | 2,855 | 28,0 | 2570 |
+| **Peredam Spektrum / Kontrol**| $\text{B}_4\text{C}$ (80% $^{10}\text{B}$) | 2,510 | 30,0 | 2450 |
+| **Fluida Kerja Pipa Kalor** | Sodium Murni ($\text{Na}$) | 0,780 (pada 1050 K) | 65,0 | 97,7 (Didih: 883) |
+| **Struktur Sumbu Kapiler** | Anyaman Porous Mo-30Re | 7,180 (bulk porositas 70%) | $k_{\text{eff}} \approx 32,5$ | 2790 |
+
+## IV.2. Tata Laksana Penelitian
+Tahap pelaksanaan penelitian dilaksanakan melalui alur logis yang sistematis sebagaimana dirangkum pada diagram alir Gambar 4.1.
+
+```
+       +-------------------------------------------------------+
+       |             MULAI STUDI & FORMULASI TEORI             |
+       +-------------------------------------------------------+
+                                  |
+                                  v
+       +-------------------------------------------------------+
+       |   Formulasi Termofisika Sodium (Fink & Leibowitz)     |
+       |  - Tekanan Uap Psat(T), Panas Laten hfg(T)            |
+       |  - Densitas (rhol, rhov), Viskositas, Tegangan Perm.  |
+       +-------------------------------------------------------+
+                                  |
+                                  v
+       +-------------------------------------------------------+
+       |     PENGEMBANGAN SOLVER NUMERIK ROM 1D (Python)       |
+       |  - Diskretisasi Aksial Grid (N = 60-100 simpul)       |
+       |  - Momentum Uap Kompresibel (Busse-Faghri 1D)         |
+       |  - Aliran Cairan Sumbu Porus (Hukum Darcy)            |
+       |  - Solver 5 Batas Operasional (Cap, Sonic, Ent, etc.) |
+       +-------------------------------------------------------+
+                                  |
+                                  v
+       +-------------------------------------------------------+
+       |        BENCHMARK DAN VALIDASI DATA LAPANGAN           |
+       |     Eksperimen NASA KRUSTY (NASA TM-2018-219702)      |
+       |  - 4 Kasus Daya: 1.2 kW, 3.0 kW, 4.5 kW, 5.0 kW       |
+       |  - Evaluasi Statistik: RMSE, MAPE, dan R^2            |
+       +-------------------------------------------------------+
+                                  |
+                        [Apakah R^2 >= 0.95?]
+                        /                  \
+                     Tidak                 Ya
+                      /                      \
+      +----------------------+     +----------------------------+
+      |  Koreksi Formulasi   |     |   APLIKASI TERAS ISR       |
+      | Gesekan/Pemulihan P  |     |   (500 kWth, 61 Pin UN)    |
+      +----------------------+     +----------------------------+
+                                                 |
+                                                 v
+                                   +----------------------------+
+                                   | Pemetaan Batas Operasional |
+                                   | Profil Suhu & Margin Pin   |
+                                   | Evaluasi Reduksi Massa     |
+                                   +----------------------------+
+                                                 |
+                                                 v
+                                   +----------------------------+
+                                   | PENYUSUNAN LAPORAN SKRIPSI |
+                                   | & REPOSITORI QUARTO THESIS |
+                                   +----------------------------+
+```
+::: {style="text-align: center;"}
+**Gambar 4.1.** Diagram alir tahapan penelitian komputasi termohidrolika pipa kalor.
+:::
+
+### Algoritma Komputasi Numerik Simulator ROM
+1. **Inisialisasi Grid dan Parameter**:
+   - Membagi domain aksial pipa kalor sepanjang $L = L_e + L_a + L_c$ ke dalam $N$ simpul spasial $\Delta z = L / (N - 1)$.
+   - Menentukan sifat fluida saturasi pada temperatur operasi nominal $T_0$.
+2. **Kalkulasi Laju Alir Massa Aksial**:
+   - Menghitung $\dot{m}_{\max} = Q / h_{fg}$.
+   - Mendistribusikan $\dot{m}(z)$ secara linear pada zona pemanasan evaporator, konstan pada zona adiabatik, dan terdegradasi linear pada zona kondensasi.
+3. **Integrasi Maju Tekanan Uap Aksial ($P_v$)**:
+   - Menetapkan kondisi batas hulu di ujung evaporator: $P_v(0) = P_{\text{sat}}(T_0)$.
+   - Melakukan integrasi langkah maju (*forward marching*) menggunakan beda hingga orde-dua:
+     $$P_v[i] = P_v[i-1] - \Delta P_{\text{fric}}[i] - \Delta P_{\text{inert}}[i]$$
+   - Menerapkan koefisien pemulihan tekanan $\eta = 0,65$ pada zona kondensasi.
+4. **Integrasi Mundur Tekanan Cairan Sumbu ($P_l$)**:
+   - Menetapkan kondisi batas di ujung kondensor (di mana kelengkungan meniskus minimum): $P_l[N-1] = P_v[N-1]$.
+   - Melakukan integrasi mundur (*backward marching*) dari kondensor menuju evaporator berbasis hukum Darcy:
+     $$P_l[i] = P_l[i+1] - \left(\frac{\mu_l \dot{m}[i]}{\rho_l A_w K} + \rho_l g \sin\theta\right) \Delta z$$
+5. **Evaluasi Jaringan Termal Radial dan Margin Kapiler**:
+   - Menghitung temperatur saturasi uap lokal $T_v[i] = T_{\text{sat}}(P_v[i])$.
+   - Menghitung temperatur dinding luar kelongsong $T_{\text{wall}}[i]$ melalui jaringan resistansi termal radial dinding kelongsong dan struktur sumbu.
+   - Menghitung margin kapiler lokal: $\text{Margin}_c[i] = \Delta P_{c,\max} - (P_v[i] - P_l[i])$.
+6. **Kalkulasi 5 Batas Operasional Termal**:
+   - Mengevaluasi $Q_{\text{cap}}$, $Q_{\text{sonic}}$, $Q_{\text{ent}}$, $Q_{\text{visc}}$, dan $Q_{\text{boil}}$.
+   - Menentukan amplop batas perpindahan kalor terendah $Q_{\text{envelope}} = \min(Q_i)$.
+
+## IV.3. Rencana Analisis Hasil Penelitian
+Pengolahan data dan evaluasi performa model dilakukan melalui langkah-langkah analitik berikut:
+
+### 1. Evaluasi Akurasi Statistik Validasi NASA KRUSTY
+Ketepatan prediksi temperatur model numerik terhadap data pengukuran termokopel eksperimen KRUSTY diukur menggunakan tiga parameter statistik standar [12]:
+- **Root Mean Square Error (RMSE)**:
+  $$\text{RMSE} = \sqrt{\frac{1}{N_{\text{obs}}} \sum_{j=1}^{N_{\text{obs}}} (T_{\text{model},j} - T_{\text{exp},j})^2} \quad [\text{K}]$$ {#eq-rmse}
+- **Mean Absolute Percentage Error (MAPE)**:
+  $$\text{MAPE} = \frac{1}{N_{\text{obs}}} \sum_{j=1}^{N_{\text{obs}}} \left|\frac{T_{\text{model},j} - T_{\text{exp},j}}{T_{\text{exp},j}}\right| \times 100\%$$ {#eq-mape}
+- **Koefisien Determinasi ($R^2$)**:
+  $$R^2 = 1 - \frac{\sum_{j=1}^{N_{\text{obs}}} (T_{\text{exp},j} - T_{\text{model},j})^2}{\sum_{j=1}^{N_{\text{obs}}} (T_{\text{exp},j} - \bar{T}_{\text{exp}})^2}$$ {#eq-r2}
+
+### 2. Analisis Implementasi pada Teras ISR 500 $\text{kW}_{\text{th}}$
+- Memetakan 61 pin bahan bakar ke dalam 5 cincin radial konsentris dengan faktor *peaking* fluks neutron cepat $F_r \in [0,76; 1,38]$ berdasarkan hasil CSAS6/KENO-VI Khandaq dkk. (2020) [6].
+- Menghitung beban termal pada masing-masing cincin: pin pusat ($11,31\ \text{kW}_{\text{th}}$), cincin 2 ($10,25\ \text{kW}_{\text{th}}$), cincin 3 ($8,85\ \text{kW}_{\text{th}}$), cincin 4 ($7,21\ \text{kW}_{\text{th}}$), dan cincin 5 ($6,23\ \text{kW}_{\text{th}}$).
+- Mengevaluasi margin keselamatan termohidrolika dan faktor keselamatan ($SF = Q_{\text{envelope}} / Q_{\text{pin}}$).
+- Menghitung neraca massa sistem pendingin dan membandingkannya terhadap massa baseline reaktor ISR (447,12 kg).

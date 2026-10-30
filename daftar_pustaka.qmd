@@ -1,0 +1,49 @@
+# DAFTAR PUSTAKA {.unnumbered}
+
+[1] M. S. El-Genk, "Deployment history and design considerations for space reactor power systems," *Acta Astronautica*, vol. 64, no. 9-10, pp. 833–849, 2009. https://doi.org/10.1016/j.actaastro.2008.12.016
+
+[2] K. Stephenson dan T. Blancquaert, "Nuclear power technologies for deep space and planetary missions," in *8th European Space Power Conference*, European Space Agency, 2008.
+
+[3] S. A. Hatton dan M. S. El-Genk, "Sectored Compact Space Reactor (SCoRe) concepts with a supplementary lunar regolith reflector," *Progress in Nuclear Energy*, vol. 51, pp. 93–108, 2009. https://doi.org/10.1016/j.pnucene.2007.12.003
+
+[4] G. L. Bennett, "A look at the Soviet space nuclear power program," in *The 24th Intersociety Energy Conversion Engineering Conference*, IEEE, 1989.
+
+[5] United Nations General Assembly, "Principles Relevant to the Use of Nuclear Power Sources in Outer Space," United Nations General Assembly Resolution A/RES/47/68, 1992. [Daring]. Tersedia: http://www.un.org/documents/ga/res/47/a47r068.htm
+
+[6] M. F. Khandaq, A. W. Harto, dan A. Agung, "Conceptual core design study for Indonesian Space Reactor (ISR)," *Progress in Nuclear Energy*, vol. 118, hal. 103109, 2020. https://doi.org/10.1016/j.pnucene.2019.103109
+
+[7] A. Faghri, *Heat Pipe Science and Technology*, Washington, DC: Taylor & Francis, 1995.
+
+[8] P. D. Dunn dan D. A. Reay, *Heat Pipes*, edisi ke-6, Oxford, UK: Butterworth-Heinemann, 2012.
+
+[9] J. K. Fink dan L. Leibowitz, "Thermodynamic and Transport Properties of Sodium Liquid and Vapor," Argonne National Laboratory, Argonne, IL, Laporan Teknis ANL/RE-95/2, 1995.
+
+[10] Institute for Heat and Mass Transfer in Nuclear Power, *Thermophysical Properties of Materials for Nuclear Engineering*, Obninsk: Institute for Heat and Mass Transfer in Nuclear Power Plants, 2006.
+
+[11] C. A. Busse, "Theory of the maximum heat transport in cylindrical heat pipes," *International Journal of Heat and Mass Transfer*, vol. 16, no. 1, pp. 169–186, 1973.
+
+[12] M. H. Briggs, M. A. Gibson, dan J. L. Sanzi, "Electrically Heated Testing of the Kilowatt Reactor Using Stirling Technology (KRUSTY) Experiment Using a Depleted Uranium Core," National Aeronautics and Space Administration (NASA), Cleveland, Ohio, Laporan Teknis NASA/TM-2018-219702, 2018.
+
+[13] M. A. Gibson, D. I. Poston, P. R. McClure, J. L. Sanzi, dan M. H. Briggs, "NASA's Kilopower Reactor Using Stirling Technology (KRUSTY) Ground Test Overview and Results," *Nuclear Technology*, vol. 206, no. sup1, pp. S1–S15, 2020. https://doi.org/10.1080/00295450.2020.1725740
+
+[14] D. I. Poston, "The Heatpipe-Operated Mars Exploration Reactor (HOMER)," Los Alamos National Laboratory, Los Alamos, NM, Laporan Teknis LA-UR-00-5269, 2000.
+
+[15] M. S. El-Genk dan J.-M. P. Tournier, "SAIR—Scalable AMTEC integrated reactor space power system," *Progress in Nuclear Energy*, vol. 45, no. 1, pp. 25–69, 2004. https://doi.org/10.1016/j.pnucene.2004.08.002
+
+[16] J. C. King dan M. S. El-Genk, "Submersion-subcritical safe space (S4) reactor," *Nuclear Engineering and Design*, vol. 236, no. 17, pp. 1759–1777, 2006. https://doi.org/10.1016/j.nucengdes.2005.12.010
+
+[17] Y. Yuan, J. Shan, B. Zhang, J. Gou, Z. Bo, T. Lu, L. Ge, dan Z. Yang, "Accident analysis of heat pipe cooled and AMTEC conversion space reactor system," *Annals of Nuclear Energy*, vol. 94, pp. 706–715, 2016. https://doi.org/10.1016/j.anucene.2016.04.017
+
+[18] T. P. Cotter, "Theory of Heat Pipes," Los Alamos Scientific Laboratory, Los Alamos, NM, Laporan Teknis LA-3246-MS, 1967.
+
+[19] S. W. Chi, *Heat Pipe Theory and Practice: A Sourcebook*, Washington, DC: Hemisphere Publishing Corporation, 1976.
+
+[20] W. M. Stacey, *Nuclear Reactor Physics*, Weinheim: Wiley-VCH Verlag GmbH & Co. KGaA, 2007.
+
+[21] Y. A. Cengel dan J. M. Cimbala, *Fluid Mechanics: Fundamentals and Applications*, New York: McGraw-Hill, 2006.
+
+[22] Oak Ridge National Laboratory, "SCALE: A Comprehensive Modeling and Simulation Suite for Nuclear Safety Analysis and Design (Manual), Scale 6.1," Oak Ridge National Laboratory, Oak Ridge, TN, 2011.
+
+[23] J. A. Webb dan I. Charit, "Neutronic effects of rhenium, gadolinia and uranium dioxide addition to a tungsten based fast spectrum space reactor," *Annals of Nuclear Energy*, vol. 79, pp. 9–17, 2015. https://doi.org/10.1016/j.anucene.2015.01.008
+
+[24] H. C. Lee, H. S. Lim, T. Y. Han, dan Š. Cerba, "A neutronic feasibility study on a small LEU fueled reactor for space applications," *Annals of Nuclear Energy*, vol. 77, pp. 35–46, 2015. https://doi.org/10.1016/j.anucene.2014.10.015

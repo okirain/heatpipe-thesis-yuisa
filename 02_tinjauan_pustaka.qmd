@@ -1,0 +1,43 @@
+# BAB II TINJAUAN PUSTAKA
+
+## II.1. Perkembangan Reaktor Antariksa dan Transisi ke Sistem Pendingin Pasif
+Evolusi reaktor nuklir antariksa telah berlangsung sejak era peluncuran SNAP-10A oleh Amerika Serikat pada tahun 1965 dan seri reaktor BUK serta TOPAZ oleh Uni Soviet [1, 4]. Pada reaktor-reaktor awal tersebut, sebagian besar sistem mengandalkan pendingin logam cair fase tunggal (paduan NaK-78) yang digerakkan menggunakan pompa elektromagnetik induksi konduksi termoelektrik [4]. Meskipun terbukti mampu beroperasi di orbit rendah bumi, sistem pemompaan aktif menunjukkan keterbatasan serius dalam keandalan jangka panjang untuk misi antariksa dalam (*deep space*), di mana kegagalan mekanik atau degradasi gulungan elektromagnetik akibat radiasi neutron cepat dapat melumpuhkan seluruh sistem pembuangan panas [2, 3].
+
+Untuk mengatasi kelemahan tersebut, riset reaktor antariksa modern dekade terakhir beralih secara masif menuju konsep pendinginan pasif menggunakan pipa kalor logam cair (*liquid metal heat pipes*) [4, 7]. Konsep ini pertama kali diusulkan secara komprehensif pada desain *Heatpipe-Operated Mars Exploration Reactor* (HOMER) oleh Poston di Los Alamos National Laboratory [14], dilanjutkan dengan *Scalable AMTEC Integrated Reactor* (SAIR) oleh El-Genk dan Tournier [15], serta *Submersion-Subcritical Safe Space Reactor* (S4) oleh King dan El-Genk [16]. Pada konsep-konsep tersebut, teras reaktor didinginkan oleh puluhan hingga ratusan pipa kalor natrium (Na) atau kalium (K) independen yang mentranspor panas fisi langsung menuju unit konversi daya termoelektrik atau Stirling. Keunggulan utamanya adalah sifat modularitas dan toleransi kerusakan (*fault tolerance*); kegagalan satu atau dua unit pipa kalor tidak menyebabkan kegagalan katastrofik pada keseluruhan teras reaktor [17].
+
+Puncak pembuktian teknologi reaktor pipa kalor terealisasi melalui program Kilopower yang dikembangkan bersama oleh NASA Glenn Research Center, Los Alamos National Laboratory, dan Nevada National Security Site (NNSS) melalui proyek uji coba KRUSTY (*Kilowatt Reactor Using Stirling Technology*) pada tahun 2017-2018 [12, 13]. Pengujian KRUSTY membuktikan kestabilan kendali reaktivitas intrinsik teras berpendingin pipa kalor sodium pada suhu 1050 K dan memvalidasi keandalan termal sistem konversi Stirling tanpa memerlukan pompa sirkulasi fluida aktif.
+
+## II.2. Termohidrolika Aliran Dua Fasa dan Fenomena Pipa Kalor pada Mikrogravitasi
+Pipa kalor adalah perangkat perpindahan kalor berkonduktivitas efektif sangat tinggi yang memanfaatkan siklus evaporasi dan kondensasi fluida kerja di dalam selubung tertutup berstruktur sumbu pori (*capillary wick*) [7, 8]. Pada pipa kalor logam cair suhu tinggi (800 K – 1300 K), sodium dipilih secara luas karena memiliki panas laten penguapan yang sangat besar ($h_{fg} \approx 4,0 \times 10^6\ \text{J/kg}$), tegangan permukaan tinggi ($\sigma \approx 0,16\ \text{N/m}$), serta konduktivitas termal cairan yang unggul ($k_l \approx 65\ \text{W/(m}\cdot\text{K)}$) [9, 10].
+
+Dalam kondisi terestrial di bumi, pengembalian cairan kondensat dari kondensor ke evaporator dapat dibantu oleh gaya berat gravitasi apabila pipa diletakkan pada posisi condong (*thermosyphon effect*) [8]. Sebaliknya, pada lingkungan antariksa atau orbit gravitasi mikro ($g \approx 0$), head hidrostatik gravitasi lenyap sepenuhnya ($\Delta P_g = 0$) [7]. Sirkulasi cairan hanya dimungkinkan oleh tekanan kapiler yang dibangkitkan oleh kelengkungan meniskus cairan pada antarmuka pori sumbu sumbu [11]. Kesetimbangan tekanan siklus tertutup menuntut bahwa head kapiler maksimum yang dapat dibangkitkan oleh sumbu harus mampu mengatasi jumlah total penurunan tekanan uap aksial dan penurunan tekanan gesekan cairan:
+$$\Delta P_{c,\max} \ge \Delta P_v + \Delta P_l$$
+
+Penelitian teoritis oleh Busse (1973) [11] dan Cotter (1967) [18] meletakkan dasar analisis penurunan tekanan uap kompresibel 1D dalam inti silinder. Pada laju perpindahan kalor tinggi atau suhu operasi rendah di mana densitas uap kecil, kecepatan uap aksial meningkat mendekati kecepatan suara ($Ma \to 1$). Pada kondisi ini, efek kompresibilitas uap dan pemulihan tekanan (*pressure recovery*) pada zona kondensasi menjadi sangat dominan. Faghri (1995) merangkum korelasi empiris dan analitis untuk menghitung faktor gesekan efektif pada inti uap dengan mempertimbangkan injeksi massa radial pada evaporator dan penarikan massa pada kondensor [7].
+
+## II.3. Pelajaran dari Pengujian Eksperimen NASA KRUSTY
+Laporan teknis NASA TM-2018-219702 oleh Briggs, Gibson, dan Sanzi (2018) mendokumentasikan hasil pengujian termal komprehensif pipa kalor KRUSTY berdiameter luar 15,88 mm (5/8 inci) berbahan kelongsong Haynes 230 dengan sodium sebagai fluida kerja [12]. Pipa kalor diuji dalam ruang hampa udara (*vacuum chamber*) pada rentang daya 1,2 kW hingga 5,0 kW per pipa dengan variasi temperatur evaporator dari 650 °C (923 K) hingga 790 °C (1063 K).
+
+Pengukuran eksperimental KRUSTY menunjukkan bahwa:
+1. Gradien temperatur sepanjang zona adiabatik sangat kecil ($\Delta T < 1\ \text{K}$ per 30 cm panjang), membuktikan efisiensi isotermalitas uap sodium yang luar biasa.
+2. Penurunan temperatur terbesar terjadi pada hambatan termal radial di dinding kelongsong dan struktur sumbu pada evaporator dan kondensor.
+3. Struktur sumbu komposit berarteri (*annular composite artery wick*) mampu menjaga margin kapiler di atas 15 kPa pada daya 4,5 kW tanpa tanda-tanda terjadinya kekeringan sumbu (*dryout*).
+
+Data pengukuran termokopel aksial dari laporan teknis NASA tersebut merupakan acuan validasi lapangan yang sangat berharga untuk mengevaluasi akurasi model numerik yang dikembangkan dalam penelitian ini.
+
+## II.4. Konseptual ISR dan Limitasi Sistem Pompa Na-78K
+Studi konseptual teras *Indonesian Space Reactor* (ISR) yang dipublikasikan oleh Khandaq, Harto, dan Agung (2020) di jurnal *Progress in Nuclear Energy* memodelkan teras cepat heksagonal berdaya 500 $\text{kW}_{\text{th}}$ dengan 61 pin bahan bakar $\text{UN}$ (pengayaan 55% $^{235}\text{U}$) [6]. Struktur pin dirancang berupa silinder berongga dengan diameter lubang kelongsong sebesar 3,265 cm dan saluran anular berdiameter dalam 0,6 cm untuk aliran pendingin paduan $\text{Na-78K}$.
+
+Meskipun analisis neutronik menunjukkan bahwa teras ISR memenuhi kriteria reaktivitas lebih dan batas keselamatan subkritis saat kecelakaan terendam air laut ($-\rho_{\text{sub}} = 2905\ \text{pcm}$ dengan peredam geseran spektrum Mo-30Re) [6], sistem pendingin pompa saluran anular memiliki keterbatasan fisik nyata. Diameter saluran hidrolik yang hanya 6 mm menimbulkan rugi gesekan hidrolik tinggi bila dialiri fluida fase tunggal, sehingga pompa elektromagnetik harus bekerja pada gradien tekanan besar. Hal ini meningkatkan konsumsi daya listrik parasitik wahana dan menambah massa reaktor hingga mencapai 447,12 kg [6].
+
+Khandaq dkk. (2020) pada Bab 3.7 dan Bab 4 menyatakan perlunya evaluasi termohidrolika lanjutan untuk menjajaki penggantian saluran anular pompa dengan pipa kalor sodium (*sodium heat pipe*). Namun, studi termohidrolika numerik dua fasa terperinci untuk membuktikan kelayakan penggantian tersebut belum pernah dilakukan sebelumnya.
+
+## II.5. Kebaruan dan Posisi Penelitian
+Posisi penelitian ini berada tepat pada jembatan kelanjutan desain konseptual ISR [6], dengan mengisi kekosongan analisis termohidrolika dua fasa pasif. Kebaruan (*novelty*) dari penelitian ini meliputi:
+1. Pengembangan model numerik orde-tereduksi (ROM) aliran dua fasa pipa kalor sodium berbasis Python yang mengintegrasikan dinamika uap kompresibel, hidrodinamika sumbu berpori, dan evaluasi lima batas operasional termal simultan.
+2. Validasi model komputasi terhadap data uji termal resmi NASA KRUSTY dengan pengukuran metrik galat statistik yang ketat (RMSE, MAPE, $R^2$).
+3. Penentuan dimensi optimum dan pemetaan batas keselamatan termohidrolika pipa kalor sodium untuk menggantikan sistem pompa pada seluruh 61 pin bahan bakar ISR dalam lingkungan gravitasi mikro ($g = 0$).
+4. Evaluasi komparatif reduksi massa dan keandalan sistem pendingin pasif teras ISR terhadap sistem pompa aktif konvensional.
+
+## II.6. Penulisan Acuan
+Semua sumber literatur dan acuan ilmiah dalam skripsi ini dikelola secara sistematis dengan format sitasi IEEE numerik bertanda kurung siku [1], [2], [6], [12].

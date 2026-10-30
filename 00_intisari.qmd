@@ -1,0 +1,40 @@
+---
+title: "INTISARI"
+---
+
+::: {style="text-align: center;"}
+**PEMODELAN ORDE-TEREDUKSI ALIRAN DUA FASA PIPA KALOR SODIUM UNTUK PENDINGIN PASIF INDONESIAN SPACE REACTOR**
+
+\vspace{0.5cm}
+
+**Muhammad Naufal Tamimi**  
+**20/456315/TK/50445**
+
+\vspace{0.5cm}
+
+Diajukan kepada Departemen Teknik Nuklir dan Teknik Fisika Fakultas Teknik  
+Universitas Gadjah Mada pada tanggal 20 Oktober 2025  
+untuk memenuhi sebagian persyaratan untuk memperoleh derajat  
+Sarjana Program Studi Teknik Nuklir
+:::
+
+\vspace{0.8cm}
+
+# INTISARI {.unnumbered}
+
+Pengembangan sistem propulsi dan daya antariksa mendalam membutuhkan reaktor nuklir berdaya tinggi dengan keandalan ekstrem. Desain konseptual *Indonesian Space Reactor* (ISR) 500 kWth sebelumnya mengandalkan pendingin cair Na-78K dengan sistem pompa mekanik aktif. Namun, keberadaan pompa aktif menimbulkan kerentanan kebocoran fluida bertekanan, vibrasi mekanik yang mengganggu instrumen wahana, dan risiko kegagalan katastrofik tunggal. Untuk mengatasi permasalahan tersebut, penelitian ini bertujuan mengembangkan model komputasi orde-tereduksi (*Reduced-Order Model*/ROM) aliran dua fasa pipa kalor sodium beroperasi pada mikrogravitasi sebagai pengganti pasif sistem pompa.
+
+Model numerik satu dimensi dibangun dengan memformulasikan dinamika uap kompresibel termodifikasi Busse-Faghri, aliran filtrasi cairan sumbu kapiler berbasis hukum Darcy, serta persamaan kesetimbangan Young-Laplace. Simulator mengintegrasikan perhitungan simultan lima batas operasional kritis (kapiler, sonik, entrainment, viskos, dan pendidihan). Validasi model dilakukan secara komparatif terhadap data uji eksperimen termal reaktor NASA KRUSTY pada variasi daya 1,2 kWth hingga 5,0 kWth. Model tervalidasi kemudian diimplementasikan pada 61 pin bahan bakar heksagonal teras ISR dengan profil daya radial memuncak.
+
+Hasil validasi menunjukkan akurasi tinggi terhadap data eksperimen NASA KRUSTY dengan *Root Mean Square Error* (RMSE) sebesar 6,57 K, *Mean Absolute Percentage Error* (MAPE) 0,59%, dan koefisien determinasi $R^2 = 0,9854$. Pada teras ISR 500 kWth, penggunaan pipa kalor berdiameter luar 18 mm pada suhu operasi 1050 K mampu mengevakuasi daya pin puncak 11,31 kWth dengan faktor keselamatan 1,10x hingga 2,00x pada batas kapiler 37,38 kWth. Penggantian pompa menghasilkan penghematan massa teras sebesar 36,80 kg (8,23%), membuktikan kelayakan pipa kalor sebagai sistem pendingin pasif mandiri ISR di luar angkasa.
+
+\vspace{0.5cm}
+
+**Kata kunci**: *Pipa kalor sodium, Indonesian Space Reactor, mikrogravitasi, aliran dua fasa, pendingin pasif, NASA KRUSTY.*
+
+\vspace{1cm}
+
+| Pembimbing | Nama Pembimbing |
+| :--- | :--- |
+| **Pembimbing Utama** | Dr. Ir. Alexander Agung, S.T., M.Sc., IPU |
+| **Pembimbing Pendamping** | Ir. Andang Widi Harto, M.T., Ph.D. |

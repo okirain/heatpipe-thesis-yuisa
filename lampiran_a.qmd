@@ -1,0 +1,174 @@
+# LAMPIRAN A: LISTING KODE PROGRAM PYTHON SIMULATOR {.unnumbered}
+
+Berikut adalah kode sumber utama simulator numerik orde-tereduksi (*Reduced-Order Model*/ROM) aliran dua fasa pipa kalor sodium berbasis Python (`heatpipe_rom.py`).
+
+```python
+#!/usr/bin/env python3
+"""
+================================================================================
+Reduced-Order Numerical Model (ROM) for Liquid Metal Heat Pipes in Space Reactors
+Author: Muhammad Naufal Tamimi (NIM: 20/456315/TK/50445)
+Department: Departemen Teknik Nuklir dan Teknik Fisika, Universitas Gadjah Mada
+Application: Microgravity Thermal-Hydraulics for Space Nuclear Power
+             (KRUSTY Benchmark & Indonesian Space Reactor / ISR Core Integration)
+================================================================================
+"""
+
+import math
+import json
+import sys
+import os
+
+class SodiumProperties:
+    @staticmethod
+    def p_sat(T):
+        """Saturation vapor pressure [Pa] from Fink & Leibowitz (1995, ANL-RE-95-2)"""
+        T_clamped = max(500.0, min(2400.0, float(T)))
+        ln_p_mpa = 11.9463 - (12633.73 / T_clamped) - 0.5 * math.log(T_clamped)
+        return math.exp(ln_p_mpa) * 1.0e6  # Pa
+
+    @staticmethod
+    def t_sat(P):
+        """Saturation temperature [K] given vapor pressure [Pa] via Newton-Raphson"""
+        T = 1000.0
+        P_target = max(10.0, float(P))
+        for _ in range(25):
+            p_calc = SodiumProperties.p_sat(T)
+            dp_dT = p_calc * (12633.73 / (T * T) - 0.5 / T)
+            diff = p_calc - P_target
+            if abs(diff) < 1.0 or abs(dp_dT) < 1e-12:
+                break
+            T = T - diff / dp_dT
+            T = max(600.0, min(2000.0, T))
+        return T
+
+    @staticmethod
+    def h_fg(T):
+        """Latent heat of vaporization [J/kg]"""
+        T_c = 2503.7
+        T_clamped = max(500.0, min(T_c - 1.0, float(T)))
+        theta = max(1e-4, 1.0 - T_clamped / T_c)
+        return 4.76e6 * (theta ** 0.38)
+
+    @staticmethod
+    def rho_l(T):
+        """Liquid density [kg/m^3] from ANL-RE-95-2"""
+        T_c = float(T)
+        return 1011.8 - 0.22054 * T_c - 1.9226e-5 * (T_c**2) + 5.637e-9 * (T_c**3)
+
+    @staticmethod
+    def rho_v(T, P):
+        """Vapor density [kg/m^3] from ideal gas law"""
+        R_na = 8314.46 / 22.98977  # 361.66 J/(kg*K)
+        return float(P) / (R_na * float(T))
+
+    @staticmethod
+    def mu_l(T):
+        """Liquid dynamic viscosity [Pa*s]"""
+        T_c = float(T)
+        return math.exp(-6.4406 - 0.3958 * math.log(T_c) + 556.835 / T_c)
+
+    @staticmethod
+    def mu_v(T):
+        """Vapor dynamic viscosity [Pa*s]"""
+        return 1.0e-7 * math.sqrt(float(T))
+
+    @staticmethod
+    def sigma(T):
+        """Surface tension [N/m]"""
+        T_c = 2503.7
+        T_clamped = max(500.0, min(T_c - 1.0, float(T)))
+        theta = max(1e-4, 1.0 - T_clamped / T_c)
+        return 0.2405 * (theta ** 1.126)
+
+    @staticmethod
+    def k_l(T):
+        """Liquid thermal conductivity [W/(m*K)]"""
+        return 104.0 - 0.047 * float(T)
+
+
+class HeatPipeGeometry:
+    def __init__(self, r_outer=0.009, t_wall=0.001, t_wick=0.0008,
+                 l_evap=0.25, l_adiab=0.25, l_cond=0.50,
+                 wick_type='composite_annular', pore_radius=25e-6,
+                 porosity=0.70, permeability=3.5e-9,
+                 wall_mat='Mo-30Re', k_wall=65.0, contact_angle=0.0):
+        self.r_outer = float(r_outer)
+        self.t_wall = float(t_wall)
+        self.r_inner = self.r_outer - self.t_wall
+        self.t_wick = float(t_wick)
+        self.r_vapor = self.r_inner - self.t_wick
+        self.l_evap = float(l_evap)
+        self.l_adiab = float(l_adiab)
+        self.l_cond = float(l_cond)
+        self.l_total = self.l_evap + self.l_adiab + self.l_cond
+        self.l_eff = 0.5 * self.l_evap + self.l_adiab + 0.5 * self.l_cond
+        self.r_eff = float(pore_radius)
+        self.porosity = float(porosity)
+        self.permeability = float(permeability)
+        self.wall_mat = wall_mat
+        self.k_wall = float(k_wall)
+        self.contact_angle = float(contact_angle)
+        self.a_vapor = math.pi * (self.r_vapor ** 2)
+        self.a_wick = math.pi * (self.r_inner**2 - self.r_vapor**2)
+        self.d_vapor = 2.0 * self.r_vapor
+
+    def effective_wick_k(self, k_liquid):
+        eps = self.porosity
+        kw = self.k_wall
+        kl = k_liquid
+        num = kl * ((kl + kw) - (1.0 - eps) * (kl - kw))
+        den = (kl + kw) + (1.0 - eps) * (kl - kw)
+        return num / den
+
+
+class TwoPhaseHeatPipeROM:
+    def __init__(self, geometry: HeatPipeGeometry, g=0.0, tilt_angle=0.0):
+        self.geo = geometry
+        self.g = float(g)
+        self.tilt_angle = float(tilt_angle)
+
+    def calculate_operational_limits(self, T_sat):
+        geo = self.geo
+        p_sat = SodiumProperties.p_sat(T_sat)
+        h_fg = SodiumProperties.h_fg(T_sat)
+        rho_l = SodiumProperties.rho_l(T_sat)
+        rho_v = SodiumProperties.rho_v(T_sat, p_sat)
+        mu_l = SodiumProperties.mu_l(T_sat)
+        mu_v = SodiumProperties.mu_v(T_sat)
+        sigma = SodiumProperties.sigma(T_sat)
+        k_l = SodiumProperties.k_l(T_sat)
+        k_eff = geo.effective_wick_k(k_l)
+        gamma = 1.67
+        R_na = 361.66
+
+        # Capillary Limit
+        delta_p_c_max = (2.0 * sigma * math.cos(geo.contact_angle)) / geo.r_eff
+        delta_p_g = rho_l * self.g * geo.l_total * math.sin(self.tilt_angle)
+        f_l = mu_l / (rho_l * geo.a_wick * geo.permeability * h_fg)
+        f_v = (8.0 * mu_v) / (math.pi * rho_v * (geo.r_vapor ** 4) * h_fg)
+        available_cap = delta_p_c_max - delta_p_g
+        q_cap = available_cap / ((f_l + f_v) * geo.l_eff) if available_cap > 0 else 0.0
+
+        # Sonic Limit
+        q_sonic = geo.a_vapor * rho_v * h_fg * math.sqrt((gamma * R_na * T_sat) / (2.0 * (gamma + 1.0)))
+
+        # Entrainment Limit
+        r_hs = geo.r_eff * 0.5
+        q_ent = geo.a_vapor * h_fg * math.sqrt((sigma * rho_v) / (2.0 * r_hs))
+
+        # Viscous Limit
+        q_visc = (geo.r_vapor**2 * h_fg * rho_v * p_sat * geo.a_vapor) / (16.0 * mu_v * geo.l_eff)
+
+        # Boiling Limit
+        r_n = 2.5e-6
+        delta_T_crit = (2.0 * sigma * T_sat) / (rho_v * h_fg * r_n)
+        q_boil = (2.0 * math.pi * geo.l_evap * k_eff * delta_T_crit) / math.log(geo.r_inner / geo.r_vapor)
+
+        q_envelope = min(q_cap, q_sonic, q_ent, q_visc, q_boil)
+        return {
+            'T_sat': T_sat, 'P_sat': p_sat,
+            'q_cap': q_cap, 'q_sonic': q_sonic, 'q_ent': q_ent,
+            'q_visc': q_visc, 'q_boil': q_boil, 'q_envelope': q_envelope
+        }
+```

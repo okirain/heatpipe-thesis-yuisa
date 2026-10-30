@@ -1,0 +1,45 @@
+project:
+  type: book
+  title: "Pemodelan Orde-Tereduksi Aliran Dua Fasa Pipa Kalor Sodium untuk Sistem Pendingin Pasif Reaktor Luar Angkasa Indonesia (ISR)"
+  author: "Muhammad Naufal Tamimi (20/456315/TK/50445)"
+  date: "2025"
+
+book:
+  title: "Pemodelan Orde-Tereduksi Aliran Dua Fasa Pipa Kalor Sodium untuk Sistem Pendingin Pasif Reaktor Luar Angkasa Indonesia (ISR)"
+  author: "Muhammad Naufal Tamimi"
+  chapters:
+    - index.qmd
+    - 00_intisari.qmd
+    - 00_abstract.qmd
+    - 01_pendahuluan.qmd
+    - 02_tinjauan_pustaka.qmd
+    - 03_dasar_teori.qmd
+    - 04_pelaksanaan_penelitian.qmd
+    - 05_hasil_dan_pembahasan.qmd
+    - 06_kesimpulan_dan_saran.qmd
+    - daftar_pustaka.qmd
+  appendices:
+    - lampiran_a.qmd
+    - lampiran_b.qmd
+
+bibliography: references.bib
+csl: ieee.csl
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    number-sections: true
+    math: true
+  pdf:
+    documentclass: report
+    papersize: a4
+    geometry:
+      - top=40mm
+      - left=40mm
+      - bottom=30mm
+      - right=30mm
+    fontsize: 12pt
+    linestretch: 1.5
+    number-sections: true
+    toc: true

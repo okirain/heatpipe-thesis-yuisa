@@ -1,0 +1,46 @@
+# BAB I PENDAHULUAN
+
+## I.1. Latar Belakang
+Eksplorasi antariksa mendalam (*deep space exploration*) menuju Bulan, Mars, dan batas terluar tata surya menuntut ketersediaan sumber energi dengan rapat daya tinggi, massa jenis rendah, serta keandalan operasional jangka panjang yang tidak bergantung pada fluks radiasi matahari [1, 2]. Pembangkit listrik tenaga surya konvensional mengalami degradasi drastis akibat penurunan intensitas fluks foton berbanding terbalik dengan kuadrat jarak dari matahari ($1/r^2$), sehingga reaktor fisi nuklir kompak menjadi satu-satunya alternatif realistis untuk memasok kebutuhan daya listrik dan termal wahana antariksa [3, 4]. Sesuai dengan Resolusi Majelis Umum Perserikatan Bangsa-Bangsa Nomor 47/68 Tahun 1992, penggunaan reaktor nuklir di ruang angkasa diizinkan secara ketat untuk misi-misi yang tidak memungkinkan penggunaan sumber daya alternatif lainnya [5].
+
+Sebagai kontribusi strategis terhadap pengembangan sains nuklir nasional, penelitian konseptual *Indonesian Space Reactor* (ISR) telah diinisiasi oleh Khandaq, Harto, dan Agung (2020) di Laboratorium Teknologi Energi Nuklir, Departemen Teknik Nuklir dan Teknik Fisika UGM [6]. Desain teras ISR dirancang menghasilkan daya termal minimum 500 $\text{kW}_{\text{th}}$ dengan usia operasi lebih dari 10 tahun pada daya penuh. Untuk menekan biaya produksi dan mematuhi batas-batas perjanjian non-proliferasi nuklir (*Non-Proliferation Treaty*/NPT), ISR menggunakan bahan bakar uranium nitrida ($\text{UN}$) dengan pengayaan $^{235}\text{U}$ sebesar 55%, yang disusun dalam 61 pin heksagonal berstruktur silinder berongga (*annular*) [6].
+
+Pada desain awal ISR tersebut, sistem pendingin yang dipilih adalah paduan logam cair $\text{Na-78K}$ yang disirkulasikan secara paksa menggunakan pompa mekanik/elektromagnetik di dalam saluran anular berdiameter dalam 0,6 cm pada setiap pin [6]. Meskipun paduan $\text{Na-78K}$ memiliki fase cair pada suhu ruang sehingga memudahkan proses *start-up*, Khandaq dkk. (2020) mengidentifikasi beberapa kelemahan fundamental dalam implementasi sistem pompa aktif, yaitu:
+1. Pompa mekanik atau elektromagnetik menimbulkan getaran mikroskopik (*jitter vibration*) dan kebisingan akustik yang mengganggu stabilitas orientasi optik dan sensitivitas sensor muatan wahana antariksa.
+2. Dibutuhkan sistem injeksi gas tambahan dan tangki ekspansi bertekanan untuk mencegah kavitasi dan kebocoran pendingin, yang menambah massa dan kompleksitas struktural reaktor.
+3. Kerentanan terhadap kegagalan tunggal (*single point of failure*), di mana malfungsi pompa pendingin primer secara langsung memicu kecelakaan kehilangan pendingin (*Loss of Coolant Accident*/LOCA) dan pelelehan teras.
+4. Titik didih $\text{Na-78K}$ yang relatif rendah (~1000 K) membatasi batas suhu operasi teras maksimum pada 950 K guna mencegah pembentukan gelembung uap berbahaya.
+
+Dalam bagian diskusi dan kesimpulan artikel tersebut, Khandaq dkk. (2020) secara eksplisit merekomendasikan pipa kalor sodium (*sodium heat pipe*) sebagai alternatif terbaik untuk menggantikan sistem pompa pendingin konvensional [6]. Pipa kalor beroperasi secara pasif memanfaatkan siklus penguapan, perpindahan uap akibat gradien tekanan, kondensasi, dan pengembalian cairan melalui aksi kapiler struktur sumbu berpori (*wick*) tanpa membutuhkan komponen mekanik bergerak [7, 8]. Selain mengeliminasi pompa dan getaran, sodium memiliki titik didih atmosferik yang lebih tinggi (1156 K), sehingga membuka ruang bagi peningkatan suhu operasi teras menuju 1050 K untuk mendongkrak efisiensi siklus konversi daya Stirling atau termoelektrik [9, 10].
+
+Namun demikian, penggantian sistem pendingin pada 61 pin teras ISR memerlukan pemodelan termohidrolika aliran dua fasa yang cermat. Fenomena perpindahan kalor pada pipa kalor logam cair di lingkungan mikrogravitasi dipengaruhi oleh kopling kuat antara dinamika uap kompresibel berkecepatan tinggi, tahanan gesekan fasa cair dalam pori kapiler, serta batas-batas operasional kritis seperti batas kapiler (*capillary limit*), batas sonik (*sonic limit*), dan batas *entrainment* [7, 11]. Oleh karena itu, diperlukan suatu model numerik tereduksi (*Reduced-Order Model*/ROM) berbasis bahasa pemrograman Python yang akurat, cepat, dan divalidasi terhadap data lapangan eksperimen reaktor antariksa aktual seperti NASA KRUSTY (*Kilowatt Reactor Using Stirling Technology*) [12, 13], sebelum diaplikasikan pada teras purwarupa ISR.
+
+## I.2. Perumusan Masalah
+Akar permasalahan yang mendasari penelitian ini adalah:
+1. Perlunya mengeliminasi sistem pompa mekanik/elektromagnetik aktif pada reaktor ISR guna mencapai sistem pembuangan panas pasif berkeandalan tinggi dan bebas getaran di luar angkasa.
+2. Kompleksitas fenomena aliran dua fasa logam cair di lingkungan mikrogravitasi ($g \approx 0$), di mana gaya berat tidak lagi berkontribusi terhadap pengembalian cairan kondensat, sehingga sirkulasi fluida sepenuhnya bergantung pada kesetimbangan tekanan kapiler struktur sumbu.
+3. Ketiadaan piranti komputasi termohidrolika orde-tereduksi yang fleksibel dan tervalidasi untuk mengevaluasi batas-batas operasional termal pipa kalor sodium pada konfigurasi pin bahan bakar teras ISR.
+
+Pendekatan penyelesaian masalah dilakukan melalui formulasi persamaan kekekalan massa, momentum, dan energi aliran dua fasa sodium satu dimensi (1D), integrasi model penurunan tekanan uap kompresibel termodifikasi Busse-Faghri, evaluasi aliran filtrasi cairan sumbu berpori berdasarkan hukum Darcy, serta penentuan batas keselamatan termal. Model komputasi numerik diimplementasikan dalam modul Python, divalidasi dengan membandingkannya terhadap pengukuran temperatur aksial pada pengujian NASA KRUSTY, dan selanjutnya diaplikasikan untuk merancang pipa kalor teras ISR 500 $\text{kW}_{\text{th}}$.
+
+### I.2.1. Batasan Masalah
+Batasan masalah yang diterapkan dalam penelitian ini adalah:
+1. Analisis termohidrolika difokuskan pada kondisi tunak (*steady-state*) aliran dua fasa counter-current di dalam pipa kalor silinder.
+2. Fluida kerja yang dimodelkan adalah sodium cair dan uap murni pada rentang suhu operasi 800 K hingga 1250 K dengan sifat termofisika dievaluasi berdasarkan korelasi standar ANL-RE-95-2 dan Faghri.
+3. Struktur sumbu kapiler yang dianalisis mencakup kawat kasa (*screen mesh*) dan sumbu komposit berarteri (*composite annular/artery wick*).
+4. Lingkungan gravitasi dimodelkan pada mikrogravitasi ($g = 0\ \text{m/s}^2$) untuk wahana antariksa, serta gravitasi terestrial ($g = 9,81\ \text{m/s}^2$) dengan inklinasi untuk validasi fasilitas uji tanah NASA KRUSTY.
+5. Parameter geometri dan daya teras reaktor dibatasi pada spesifikasi resmi reaktor ISR hasil perhitungan neutronic Khandaq dkk. (2020), yaitu teras heksagonal 61 pin bahan bakar $\text{UN}$ dengan daya total 500 $\text{kW}_{\text{th}}$ dan faktor *peaking* radial teras cepat.
+
+## I.3. Tujuan Penelitian
+Tujuan yang hendak dicapai dalam penelitian skripsi ini adalah:
+1. Mengembangkan kode simulasi numerik orde-tereduksi (*Reduced-Order Model*) berbasis Python untuk menganalisis karakteristik aliran dua fasa, profil tekanan, suhu aksial, dan bilangan Mach uap pada pipa kalor sodium.
+2. Memvalidasi model numerik yang dikembangkan terhadap data lapangan uji termal eksperimen NASA KRUSTY pada berbagai tingkatan daya (1,2 kW hingga 5,0 kW per pipa) dan mengukur tingkat akurasi statistik (RMSE, MAPE, dan $R^2$).
+3. Merancang geometri dan parameter operasional purwarupa pipa kalor sodium yang mampu menggantikan sistem pendingin pompa saluran anular pada teras reaktor Indonesian Space Reactor (ISR) 500 $\text{kW}_{\text{th}}$.
+4. Menganalisis batas-batas operasional perpindahan kalor (*operational limits*) dan margin keselamatan termohidrolika pada seluruh 61 pin bahan bakar ISR dalam kondisi mikrogravitasi.
+5. Mengevaluasi perbandingan performa, keandalan sistem keselamatan pasif, serta potensi reduksi massa total reaktor akibat eliminasi komponen pompa pendingin aktif.
+
+## I.4. Manfaat Penelitian
+Manfaat yang diperoleh dari penelitian ini mencakup:
+1. **Manfaat Ilmiah**: Memberikan kontribusi teoritis dan metodologis mengenai pemodelan komputasi termohidrolika dua fasa logam cair pada geometri pipa kalor dalam rezim mikrogravitasi antariksa.
+2. **Manfaat Praktis dan Teknologi**: Menyediakan piranti lunak (*code package*) simulator sumber terbuka (*open-source*) bagi para periset di lingkungan Departemen Teknik Nuklir dan Teknik Fisika UGM dan Badan Riset dan Inovasi Nasional (BRIN) untuk mendesain sistem manajemen termal reaktor generasi lanjut.
+3. **Manfaat Strategis Nasional**: Mendukung peta jalan (*roadmap*) penguasaan teknologi kedirgantaraan dan ketenaganukliran Indonesia, khususnya realisasi rekayasa reaktor daya antariksa nasional (ISR) yang mandiri, kompak, dan berdaya saing global.

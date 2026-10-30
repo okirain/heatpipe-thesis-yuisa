@@ -1,0 +1,40 @@
+---
+title: "ABSTRACT"
+---
+
+::: {style="text-align: center;"}
+**REDUCED-ORDER NUMERICAL MODELING OF TWO-PHASE SODIUM HEAT PIPE FOR PASSIVE COOLING OF THE INDONESIAN SPACE REACTOR**
+
+\vspace{0.5cm}
+
+**Muhammad Naufal Tamimi**  
+**20/456315/TK/50445**
+
+\vspace{0.5cm}
+
+Submitted to the Department of Nuclear Engineering and Engineering Physics  
+Faculty of Engineering Universitas Gadjah Mada on October 20, 2025  
+in partial fulfillment of the requirement for the Degree of  
+Bachelor of Engineering in Nuclear Engineering
+:::
+
+\vspace{0.8cm}
+
+# ABSTRACT {.unnumbered}
+
+Deep space scientific exploration missions necessitate compact, high-power nuclear reactors possessing unconditional passive safety and high operational reliability. The baseline conceptual design of the 500 kWth Indonesian Space Reactor (ISR) previously utilized a forced circulation liquid Na-78K metal coolant propelled by mechanical or electromagnetic pumps. However, active pump systems introduce critical drawbacks, including seal failure risks, micro-vibrational jitter disrupting sensitive astronomical instruments, and single-point failure hazards. To resolve these vulnerabilities, this study develops a fast, high-fidelity Reduced-Order Model (ROM) numerical simulator for two-phase sodium heat pipe flow under microgravity environments to replace active pumping systems with self-driven capillary cooling.
+
+The one-dimensional numerical model couples compressible frictional vapor dynamics via the Busse-Faghri momentum formulations, Darcy liquid filtration within sintered composite wick structures, and Young-Laplace capillary meniscus boundary conditions. The code simultaneously computes the envelope of five fundamental heat transport limits (capillary, sonic, entrainment, viscous, and boiling). Rigorous numerical validation was conducted against experimental thermal field data from the NASA KRUSTY (Kilopower Reactor Using Stirling Technology) nuclear-heated and electrically heated tests across power regimes ranging from 1.2 kWth to 5.0 kWth per heat pipe. The validated solver was subsequently integrated into the 61-pin hexagonal core of the ISR under a Bessel-distributed radial peaking profile.
+
+Validation results demonstrate exceptional fidelity against NASA KRUSTY experimental measurements, yielding a Root Mean Square Error (RMSE) of 6.57 K, a Mean Absolute Percentage Error (MAPE) of 0.59%, and a coefficient of determination $R^2 = 0.9854$. Core implementation on the 500 kWth ISR confirms that an optimized heat pipe outer diameter of 18 mm operating at 1050 K safely evacuates the central peaked pin load of 11.31 kWth with a safety factor of 1.10x to 2.00x against the 37.38 kWth capillary threshold. Transitioning to heat pipe passive cooling achieves a reactor core mass reduction of 36.80 kg (8.23%), confirming its viability as an autonomous, vibration-free thermal management solution for Indonesian space missions.
+
+\vspace{0.5cm}
+
+**Keywords**: *Sodium heat pipe, Indonesian Space Reactor, microgravity, two-phase flow, passive safety, NASA KRUSTY.*
+
+\vspace{1cm}
+
+| Academic Advisor | Name |
+| :--- | :--- |
+| **Principal Supervisor** | Dr. Ir. Alexander Agung, S.T., M.Sc., IPU |
+| **Co-Supervisor** | Ir. Andang Widi Harto, M.T., Ph.D. |

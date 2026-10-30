@@ -1,0 +1,215 @@
+---
+title: "PEMODELAN ORDE-TEREDUKSI ALIRAN DUA FASA PIPA KALOR SODIUM UNTUK PENDINGIN PASIF INDONESIAN SPACE REACTOR"
+author: "Muhammad Naufal Tamimi"
+date: "2025"
+---
+
+# HALAMAN JUDUL {.unnumbered}
+
+::: {style="text-align: center; margin-top: 2rem;"}
+**PEMODELAN ORDE-TEREDUKSI ALIRAN DUA FASA PIPA KALOR SODIUM UNTUK PENDINGIN PASIF INDONESIAN SPACE REACTOR**
+
+\vspace{1.5cm}
+
+**SKRIPSI**
+
+untuk memenuhi sebagian persyaratan  
+untuk memperoleh derajat Sarjana  
+Program Studi Teknik Nuklir
+
+\vspace{2cm}
+
+Diajukan oleh:  
+**MUHAMMAD NAUFAL TAMIMI**  
+**20/456315/TK/50445**
+
+\vspace{2cm}
+
+Kepada  
+**DEPARTEMEN TEKNIK NUKLIR DAN TEKNIK FISIKA**  
+**FAKULTAS TEKNIK**  
+**UNIVERSITAS GADJAH MADA**  
+**YOGYAKARTA**  
+**2025**
+:::
+
+\newpage
+
+# PERNYATAAN BEBAS PLAGIASI {.unnumbered}
+
+Saya yang bertanda tangan di bawah ini:
+
+| Data Mahasiswa | Keterangan |
+| :--- | :--- |
+| **Nama** | Muhammad Naufal Tamimi |
+| **NIM** | 20/456315/TK/50445 |
+| **Tahun Terdaftar** | 2020 |
+| **Program Studi** | Teknik Nuklir |
+| **Departemen** | Departemen Teknik Nuklir dan Teknik Fisika |
+| **Fakultas** | Teknik, Universitas Gadjah Mada |
+
+menyatakan bahwa dokumen ilmiah skripsi ini tidak terdapat bagian dari karya ilmiah lain yang telah diajukan untuk memperoleh gelar akademik di suatu lembaga Pendidikan Tinggi, dan juga tidak terdapat karya atau pendapat yang pernah ditulis atau diterbitkan oleh orang/lembaga lain, kecuali yang secara tertulis disitasi dalam dokumen ini dan disebutkan sumbernya secara lengkap dalam daftar pustaka.
+
+Dengan demikian saya menyatakan bahwa dokumen ilmiah ini bebas dari unsur-unsur plagiasi dan apabila dokumen ilmiah Skripsi ini di kemudian hari terbukti merupakan plagiasi dari hasil karya penulis lain dan/atau dengan sengaja mengajukan karya atau pendapat yang merupakan hasil karya penulis lain, maka penulis bersedia menerima sanksi akademik dan/atau sanksi hukum yang berlaku.
+
+\vspace{1.5cm}
+
+::: {style="text-align: right;"}
+Yogyakarta, 20 Oktober 2025  
+
+*(Materai ASLI Rp 10.000)*  
+
+\vspace{1.5cm}
+
+**Muhammad Naufal Tamimi**  
+NIM. 20/456315/TK/50445
+:::
+
+\newpage
+
+# HALAMAN PENGESAHAN {.unnumbered}
+
+::: {style="text-align: center;"}
+**SKRIPSI**
+
+**PEMODELAN ORDE-TEREDUKSI ALIRAN DUA FASA PIPA KALOR SODIUM UNTUK PENDINGIN PASIF INDONESIAN SPACE REACTOR**
+:::
+
+\vspace{1cm}
+
+| Komponen | Identitas |
+| :--- | :--- |
+| **Nama Mahasiswa** | Muhammad Naufal Tamimi |
+| **Nomor Mahasiswa** | 20/456315/TK/50445 |
+| **Program Studi** | Teknik Nuklir |
+| **Pembimbing Utama** | Dr. Ir. Alexander Agung, S.T., M.Sc., IPU |
+| **Pembimbing Pendamping** | Ir. Andang Widi Harto, M.T., Ph.D. |
+
+\vspace{1cm}
+
+Skripsi ini telah dipertahankan di hadapan Tim Penguji pada tanggal 20 Oktober 2025:
+
+| Jabatan Penguji | Nama Penguji | Tanda Tangan |
+| :--- | :--- | :--- |
+| **Ketua Sidang** | Dr. Ir. Alexander Agung, S.T., M.Sc., IPU | ........................... |
+| **Penguji Utama** | Ir. Andang Widi Harto, M.T., Ph.D. | ........................... |
+| **Anggota Penguji** | Dr.-Ing. Kusnanto, S.T., M.Eng. | ........................... |
+
+\vspace{1.5cm}
+
+Skripsi ini telah diterima dan dinyatakan memenuhi syarat kelulusan pada tanggal 28 Oktober 2025.
+
+\vspace{1cm}
+
+::: {style="text-align: center;"}
+Ketua Departemen Teknik Nuklir dan Teknik Fisika  
+Fakultas Teknik Universitas Gadjah Mada  
+
+\vspace{1.8cm}
+
+**Dr. Ir. Alexander Agung, S.T., M.Sc., IPU**  
+NIP. 19720916 199803 1002
+:::
+
+\newpage
+
+# HALAMAN PERSEMBAHAN & MOTTO {.unnumbered}
+
+::: {style="text-align: center; margin-top: 5rem; font-style: italic;"}
+*“Karya ilmiah dan skripsi ini kupersembahkan untuk kedua orang tua, keluarga tercinta, almamater Departemen Teknik Nuklir dan Teknik Fisika Universitas Gadjah Mada, serta dedikasi bagi kemajuan sains dan teknologi kedirgantaraan serta energi nuklir Indonesia menuju masa depan eksplorasi antariksa.”*
+
+\vspace{3cm}
+
+*“Knowledge is the ultimate propulsion of humanity; where physical laws seem formidable, analytical rigor and engineering ingenuity bridge the impossible.”*
+:::
+
+\newpage
+
+# KATA PENGANTAR {.unnumbered}
+
+Puji syukur penulis panjatkan ke hadirat Tuhan Yang Maha Esa atas segala rahmat, taufik, dan hidayah-Nya, sehingga penulis dapat menyelesaikan penulisan tugas akhir Skripsi yang berjudul **“Pemodelan Orde-Tereduksi Aliran Dua Fasa Pipa Kalor Sodium untuk Sistem Pendingin Pasif Indonesian Space Reactor (ISR)”**.
+
+Penelitian ini dilaksanakan untuk menjawab tantangan termohidrolika pada reaktor antariksa Indonesia (Indonesian Space Reactor / ISR), di mana sistem sirkulasi pompa mekanik konvensional memiliki kelemahan berupa kerentanan mekanik, vibrasi yang mengganggu sensor navigasi wahana antariksa, dan potensi kegagalan tunggal (*single point of failure*). Melalui pendekatan *Reduced-Order Model* (ROM) numerik aliran dua fasa yang divalidasi terhadap data eksperimen NASA KRUSTY, penelitian ini membuktikan kelayakan implementasi pipa kalor sodium berstruktur kapiler komposit sebagai sistem pendingin pasif teras reaktor.
+
+Penyelesaian skripsi ini tidak lepas dari bimbingan, arahan, dan dukungan dari berbagai pihak. Penulis menyampaikan rasa hormat dan terima kasih setulus-tulusnya kepada:
+1. **Dr. Ir. Alexander Agung, S.T., M.Sc., IPU**, selaku Ketua Departemen Teknik Nuklir dan Teknik Fisika FT UGM sekaligus Dosen Pembimbing Utama, atas arahan ilmiah, inspirasi konseptual, dan ketelitian akademis selama proses bimbingan.
+2. **Ir. Andang Widi Harto, M.T., Ph.D.**, selaku Dosen Pembimbing Pendamping, yang senantiasa memberikan wawasan mendalam mengenai fisika reaktor dan pemodelan sistem energi nuklir lanjutan.
+3. Seluruh dosen pengajar dan staf kependidikan di DTNTF FT UGM yang telah membekali penulis dengan fondasi sains dan rekayasa nuklir yang kokoh.
+4. Rekan-rekan mahasiswa Program Studi Teknik Nuklir angkatan 2020 atas kolaborasi, diskusi, dan semangat kebersamaan selama masa perkuliahan.
+
+Penulis menyadari bahwa naskah skripsi ini masih memiliki keterbatasan. Kritik dan saran yang konstruktif sangat penulis harapkan demi penyempurnaan di masa mendatang.
+
+\vspace{1cm}
+::: {style="text-align: right;"}
+Yogyakarta, Oktober 2025  
+
+**Muhammad Naufal Tamimi**
+:::
+
+\newpage
+
+# DAFTAR LAMBANG DAN SINGKATAN {.unnumbered}
+
+### Lambang Romawi
+| Lambang | Kuantitas | Satuan |
+| :--- | :--- | :--- |
+| $A_v$ | Luas penampang lintang inti uap | $\text{m}^2$ |
+| $A_w$ | Luas penampang lintang struktur sumbu (*wick*) | $\text{m}^2$ |
+| $c_s$ | Kecepatan suara dalam uap sodium | $\text{m/s}$ |
+| $D_v$ | Diameter inti uap pipa kalor | $\text{m}$ |
+| $f_v$ | Faktor gesekan Darcy pada inti uap | $-$ |
+| $F_l, F_v$ | Koefisien tahanan gesekan fasa cair dan uap | $\text{Pa}\cdot\text{s}/(\text{kg}\cdot\text{m})$ |
+| $g$ | Percepatan gravitasi | $\text{m/s}^2$ |
+| $h_{fg}$ | Panas laten penguapan sodium | $\text{J/kg}$ |
+| $K$ | Permeabilitas struktur pori sumbu kapiler | $\text{m}^2$ |
+| $k_{\text{eff}}$ | Konduktivitas termal efektif sumbu jenuh cairan | $\text{W/(m}\cdot\text{K)}$ |
+| $L_e, L_a, L_c$ | Panjang evaporator, adiabatik, dan kondensor | $\text{m}$ |
+| $L_{\text{eff}}$ | Panjang efektif perpindahan kalor aksial | $\text{m}$ |
+| $\dot{m}_v, \dot{m}_l$ | Laju alir massa aksial uap dan cairan sodium | $\text{kg/s}$ |
+| $Ma$ | Bilangan Mach aliran uap aksial | $-$ |
+| $P_v, P_l$ | Tekanan lokal uap dan cairan sodium | $\text{Pa}$ |
+| $P_{\text{sat}}$ | Tekanan uap jenuh sodium | $\text{Pa}$ |
+| $Q$ | Laju perpindahan kalor termal total | $\text{W}$ |
+| $Q_{\text{cap}}$ | Batas perpindahan kalor kapiler (*capillary limit*) | $\text{W}$ |
+| $Q_{\text{sonic}}$ | Batas perpindahan kalor sonik (*sonic limit*) | $\text{W}$ |
+| $Q_{\text{ent}}$ | Batas perpindahan kalor entrainment (*entrainment limit*) | $\text{W}$ |
+| $Q_{\text{visc}}$ | Batas perpindahan kalor viskos (*viscous limit*) | $\text{W}$ |
+| $Q_{\text{boil}}$ | Batas perpindahan kalor pendidihan (*boiling limit*) | $\text{W}$ |
+| $R_g$ | Konstanta gas spesifik sodium ($361,66\ \text{J/(kg}\cdot\text{K)}$) | $\text{J/(kg}\cdot\text{K)}$ |
+| $r_{\text{eff}}$ | Jari-jari pori kapiler efektif sumbu | $\text{m}$ |
+| $Re_v$ | Bilangan Reynolds aliran uap | $-$ |
+| $T_{\text{sat}}$ | Suhu saturasi fluida kerja sodium | $\text{K}$ |
+| $T_{\text{wall}}$ | Suhu dinding luar kelongsong pipa kalor | $\text{K}$ |
+| $u_v$ | Kecepatan rata-rata uap sodium | $\text{m/s}$ |
+
+### Lambang Yunani
+| Lambang | Kuantitas | Satuan |
+| :--- | :--- | :--- |
+| $\gamma$ | Rasio panas jenis gas monatomik ($\gamma = 1,67$) | $-$ |
+| $\Delta P_c$ | Beda tekanan kapiler antarmuka meniskus | $\text{Pa}$ |
+| $\Delta P_{c,\max}$ | Tekanan pemompaan kapiler maksimum Young-Laplace | $\text{Pa}$ |
+| $\Delta P_g$ | Head tekanan hidrostatik gravitasi | $\text{Pa}$ |
+| $\epsilon$ | Porositas volume struktur sumbu kapiler | $-$ |
+| $\theta_c$ | Sudut kontak pembasahan zat cair terhadap padatan | $\text{rad}$ |
+| $\mu_l, \mu_v$ | Viskositas dinamik cairan dan uap sodium | $\text{Pa}\cdot\text{s}$ |
+| $\rho_l, \rho_v$ | Densitas massa cairan dan uap sodium | $\text{kg/m}^3$ |
+| $\sigma$ | Tegangan permukaan cairan sodium | $\text{N/m}$ |
+
+### Singkatan
+| Singkatan | Kepanjangan |
+| :--- | :--- |
+| **BOL** | *Beginning of Life* |
+| **CSAS6** | *Criticality Safety Analysis Sequence 6* (SCALE) |
+| **DTNTF** | Departemen Teknik Nuklir dan Teknik Fisika |
+| **EM** | Elektromagnetik (*Electromagnetic*) |
+| **HEU** | *Highly Enriched Uranium* |
+| **HP** | *Heat Pipe* (Pipa Kalor) |
+| **ISR** | *Indonesian Space Reactor* |
+| **KRUSTY** | *Kilowatt Reactor Using Stirling TechnologY* (NASA) |
+| **LEU** | *Low Enriched Uranium* |
+| **MAPE** | *Mean Absolute Percentage Error* |
+| **NPT** | *Non-Proliferation Treaty* |
+| **RMSE** | *Root Mean Square Error* |
+| **ROM** | *Reduced-Order Model* |
+| **SSA** | *Spectral Shift Absorber* |
+| **UN** | *Uranium Nitride* (Uranium Nitrida) |
